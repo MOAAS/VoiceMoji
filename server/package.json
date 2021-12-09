@@ -1,0 +1,22 @@
+{
+  "name": "voicemoji",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev-server": "nodemon index.js",
+    "dev-client": "npm start --prefix client",
+    "dev": "concurrently --names \"server,client\" \"npm run dev-server\" \"npm run dev-client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^6.4.0",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  }
+}
