@@ -1,12 +1,14 @@
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
-import './SpeechRecognizer.css'
 import { useSpeechSynthesis } from 'react-speech-kit';
 import {useState} from "react";
 import emojiMap from './emojis.json';
+import Button from "./Button";
 
+import styles from './SpeechRecognizer.module.css'
 // https://www.npmjs.com/package/react-speech-recognition
 // https://www.npmjs.com/package/react-speech-kit
+
 
 function processSpeech(speech) {
     const onMatchInsertRegex = (match, emojiDesc) => {
@@ -21,9 +23,9 @@ function processSpeech(speech) {
     return speech;
 }
 
-const SpeechRecognizer = () => {
+const SpeechRecognizer = ({ onMessageSent }) => {
     const { speak, voices } = useSpeechSynthesis();
-    const { transcript, listening, browserSupportsSpeechRecognition} = useSpeechRecognition({ commands: [
+    const { transcript, listening, browserSupportsSpeechRecognition, resetTranscript} = useSpeechRecognition({ commands: [
         /* isto da para fazer comandos pogger mas n é assim tao customizable */
         {
             command: '*',
@@ -43,29 +45,40 @@ const SpeechRecognizer = () => {
         volume: 1,
     });
 
-
-
     const startListening = () => {
         // https://github.com/JamesBrill/react-speech-recognition/blob/HEAD/docs/API.md#language-string
-        SpeechRecognition.startListening({ language: 'en-US'});
+        SpeechRecognition.startListening({ language: 'en-US' });
         setMessage("")
     }
 
     const stopListening = () => {
         SpeechRecognition.stopListening();
     }
+    const sendMessage = () => {
+        onMessageSent(message);
+        clearMessage();
+    }
+    const clearMessage = () => {
+        resetTranscript()
+        setMessage("");
+    }
 
     if (!browserSupportsSpeechRecognition)
         return <span>Browser doesn't support speech recognition.</span>;
 
     return (
-        <div>
-            <p>{listening ? 'Recording 🔴' : 'Not recording'}</p>
-            {listening ?
-                <button onClick={stopListening} style={{"padding": "0.75em", fontSize: "1em"}}>Stop Recording</button> :
-                <button onClick={startListening} style={{"padding": "0.75em", fontSize: "1em"}}>Start Recording</button>
-            }
+        <div className={styles.container}>
             <p>{message || transcript}</p>
+
+            <div className={styles.buttons}>
+                <Button onClick={clearMessage} color="red">Clear</Button>
+                {listening ?
+                    <Button onClick={stopListening} color="green">Recording 🔴</Button> :
+                    <Button onClick={startListening} color="green">Start Recording</Button>
+                }
+                <Button onClick={sendMessage} color="blue">Send</Button>
+            </div>
+
         </div>
     );
 };
