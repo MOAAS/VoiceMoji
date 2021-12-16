@@ -1,0 +1,61 @@
+{
+  "happy": "😀",
+  "feliz": "😀",
+
+  "sad": "😞",
+  "triste": "😞",
+
+  "angry": "😠",
+  "zangado": "😠",
+  "irritado": "😠",
+
+  "surprised": "😮",
+  "surpreso": "😮",
+  "surpreendido": "😮",
+
+  "scared": "😱",
+  "assustado": "😱",
+
+
+  "disgusted": "😤",
+  "enjoado": "😤",
+  "enojado": "😤",
+
+  "fearful": "😨",
+  "medo": "😨",
+  "amedrontado": "😨",
+
+  "neutral": "😐",
+  "neutro": "😐",
+
+  "confused": "😕",
+  "confuso": "😕",
+
+  "sleepy": "😪",
+  "sonolento": "😪",
+
+  "dizzy": "😵",
+  "tonto": "😵",
+
+  "tired": "😫",
+  "cansado": "😫",
+
+  "bored": "😴",
+  "seca": "😴",
+  "entediado": "😴",
+
+  "annoyed": "😤",
+  "chateado": "😤",
+
+  "upset": "😥",
+
+  "proud": "😤",
+  "orgulhoso": "😤",
+
+  "love": "😍",
+  "amor": "😍",
+  "apaixonado": "😍",
+
+  "joy": "😂",
+  "rir": "😂"
+}
