@@ -14,7 +14,7 @@ code {
 button {
   cursor: pointer;
   font-family: inherit !important;
-  font-size: 0.85em !important;
+  font-size: 1em;
 }
 
 ul, li {

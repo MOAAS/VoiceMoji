@@ -1,40 +1,35 @@
-.message-list {
-  height: 200px;
-  min-width: 500px;
-  overflow: auto;
-  border: 1px solid black;
-  background: #ddd;
-  color: black;
-  padding: 0.5em;
-
-  font-size: 0.75em;
-
-}
-
-
-.App-header {
-  text-align: center;
-  background-color: #282c34;
-  min-height: 100vh;
+.app {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #282c34;
+
 }
 
-.App-logo {
-  height: 40vmin;
+.app-header {
+  text-align: center;
+  color: white;
+  font-size: 2em;
+}
+
+.app-container {
+  max-width: 40em;
+  margin: 1em auto;
+}
+
+.app-logo {
+  margin-top: 1em;
+  height: 30vmin;
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
+  .app-logo {
     animation: App-logo-spin infinite 1.5s linear;
   }
 }
-
 
 @keyframes App-logo-spin {
   from {

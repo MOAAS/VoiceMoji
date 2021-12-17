@@ -1,0 +1,9 @@
+.list {
+    height: 200px;
+    min-width: 500px;
+    overflow: auto;
+    border: 1px solid black;
+    background: #ddd;
+    color: black;
+    padding: 0.5em;
+}

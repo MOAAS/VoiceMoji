@@ -20,20 +20,41 @@ function processSpeech(speech) {
     speech = speech.replace(/\binserir emoji (.*) ok\b/gi, onMatchInsertRegex)
     speech = speech.replace(/\binsert (.*) emoji\b/gi, onMatchInsertRegex)
 
+    // remove suggest emojis from end
+    speech = speech.replace(/\b(.*) suggest emojis\b/gi, '$1')
+
     return speech;
 }
 
 const SpeechRecognizer = ({ onMessageSent }) => {
+    const [pickableEmojis, setPickableEmojis] = useState([]);
+
     const { speak, voices } = useSpeechSynthesis();
     const { transcript, listening, browserSupportsSpeechRecognition, resetTranscript} = useSpeechRecognition({ commands: [
-        /* isto da para fazer comandos pogger mas n é assim tao customizable */
         {
             command: '*',
             callback: (speech) => {
-                setMessage(processSpeech(speech))
-                textToSpeech(processSpeech(speech))
-            }
+                if (speech.toLowerCase().startsWith('emoji search')) {
+                    const search = ["😀", "😁", "😂", "🤣", "😃"]
+                    resetTranscript()
+                    setPickableEmojis(search)
+                    textToSpeech(`${speech}: ${search.join(", ")}`)
+                    return
+                }
+
+                const processedSpeech = processSpeech(speech);
+                setMessage(processedSpeech)
+                textToSpeech(processedSpeech)
+            },
         },
+        {
+            command: '* Suggest Emojis',
+            callback: () => {
+                const search = ["😀", "😁", "😂", "🤣", "😃"]
+                setPickableEmojis(search)
+                textToSpeech("Emoji suggestions: " + search.join(", "))
+            }
+        }
     ]});
     const [ message, setMessage ] = useState('');
 
@@ -50,10 +71,10 @@ const SpeechRecognizer = ({ onMessageSent }) => {
         SpeechRecognition.startListening({ language: 'en-US' });
         setMessage("")
     }
-
     const stopListening = () => {
         SpeechRecognition.stopListening();
     }
+
     const sendMessage = () => {
         onMessageSent(message);
         clearMessage();
@@ -66,8 +87,19 @@ const SpeechRecognizer = ({ onMessageSent }) => {
     if (!browserSupportsSpeechRecognition)
         return <span>Browser doesn't support speech recognition.</span>;
 
+    const EmojiButton = ({emoji}) => {
+        return <button onClick={() => {
+            setMessage(message + emoji);
+            setPickableEmojis([]);
+        }}>{emoji}</button>
+    }
+
     return (
         <div className={styles.container}>
+            <ul className={styles.emojis}>
+                {pickableEmojis.map(emoji => <li key={emoji}><EmojiButton emoji={emoji}/></li>)}
+            </ul>
+
             <p>{message || transcript}</p>
 
             <div className={styles.buttons}>
