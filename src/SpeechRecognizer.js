@@ -12,16 +12,19 @@ import styles from './SpeechRecognizer.module.css'
 
 function processSpeech(speech) {
     const onMatchInsertRegex = (match, emojiDesc) => {
+        console.log(match)
         if (emojiMap[emojiDesc.toLowerCase()]) {
             return emojiMap[emojiDesc.toLowerCase()];
         }
         return match;
     }
-    speech = speech.replace(/\binserir emoji (.*) ok\b/gi, onMatchInsertRegex)
-    speech = speech.replace(/\binsert (.*) emoji\b/gi, onMatchInsertRegex)
+    speech = speech.replace(/\binserir emoji (.*?) ok\b/gi, onMatchInsertRegex)
+    speech = speech.replace(/\binserir emoji (.*?) Ok\b/gi, onMatchInsertRegex)
+    speech = speech.replace(/\binserts? (.*?) emoji\b/gi, onMatchInsertRegex)
+    speech = speech.replace(/\badd (.*?) emoji\b/gi, onMatchInsertRegex)
 
     // remove suggest emojis from end
-    speech = speech.replace(/\b(.*) suggest emojis\b/gi, '$1')
+    speech = speech.replace(/\b(.*) suggest emojis?\b/gi, '$1')
 
     return speech;
 }
@@ -48,7 +51,7 @@ const SpeechRecognizer = ({ onMessageSent }) => {
             },
         },
         {
-            command: '* Suggest Emojis',
+            command: ['* Suggest Emoji', '* Suggest Emojis'],
             callback: () => {
                 const search = ["😀", "😁", "😂", "🤣", "😃"]
                 setPickableEmojis(search)
@@ -68,7 +71,7 @@ const SpeechRecognizer = ({ onMessageSent }) => {
 
     const startListening = () => {
         // https://github.com/JamesBrill/react-speech-recognition/blob/HEAD/docs/API.md#language-string
-        SpeechRecognition.startListening({ language: 'en-US' });
+        SpeechRecognition.startListening({ language: 'pt-PT' });
         setMessage("")
     }
     const stopListening = () => {
@@ -80,8 +83,11 @@ const SpeechRecognizer = ({ onMessageSent }) => {
         clearMessage();
     }
     const clearMessage = () => {
-        resetTranscript()
+        resetTranscript();
         setMessage("");
+    }
+    const repeatMessage = () => {
+        textToSpeech(message);
     }
 
     if (!browserSupportsSpeechRecognition)
@@ -108,7 +114,8 @@ const SpeechRecognizer = ({ onMessageSent }) => {
                     <Button onClick={stopListening} color="green">Recording 🔴</Button> :
                     <Button onClick={startListening} color="green">Start Recording</Button>
                 }
-                <Button onClick={sendMessage} color="blue">Send</Button>
+                <Button onClick={sendMessage} color="blue">Copy</Button>
+                <Button onClick={repeatMessage} color="black">Repeat</Button>
             </div>
 
         </div>

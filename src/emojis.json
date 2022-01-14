@@ -1,5 +1,6 @@
 {
   "happy": "😀",
+  "smiling": "😀",
   "feliz": "😀",
 
   "sad": "😞",
@@ -15,7 +16,6 @@
 
   "scared": "😱",
   "assustado": "😱",
-
 
   "disgusted": "😤",
   "enjoado": "😤",
@@ -57,5 +57,28 @@
   "apaixonado": "😍",
 
   "joy": "😂",
-  "rir": "😂"
+  "rir": "😂",
+
+  "clown": "🤡",
+  "palhaço": "🤡",
+
+  "dog": "🐶",
+  "cão": "🐶",
+
+  "teddy bear": "🧸",
+  "ursinho": "🧸",
+
+  "eggplant": "🍆",
+  "beringela": "🍆",
+  "berinjela": "🍆",
+
+  "sweat droplets": "💦",
+  "gotas de suor": "💦",
+
+  "zany": "🤪",
+  "maluco": "🤪",
+
+  "winking face with tongue": "😜",
+  "piscar o olho com língua de fora": "😜"
+
 }
