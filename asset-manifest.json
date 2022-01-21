@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/voicemoji/static/css/main.f3f25b39.chunk.css",
+    "main.js": "/voicemoji/static/js/main.531495fe.chunk.js",
+    "main.js.map": "/voicemoji/static/js/main.531495fe.chunk.js.map",
+    "runtime-main.js": "/voicemoji/static/js/runtime-main.cf4bd5b4.js",
+    "runtime-main.js.map": "/voicemoji/static/js/runtime-main.cf4bd5b4.js.map",
+    "static/js/2.fa916abe.chunk.js": "/voicemoji/static/js/2.fa916abe.chunk.js",
+    "static/js/2.fa916abe.chunk.js.map": "/voicemoji/static/js/2.fa916abe.chunk.js.map",
+    "index.html": "/voicemoji/index.html",
+    "static/css/main.f3f25b39.chunk.css.map": "/voicemoji/static/css/main.f3f25b39.chunk.css.map",
+    "static/js/2.fa916abe.chunk.js.LICENSE.txt": "/voicemoji/static/js/2.fa916abe.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cf4bd5b4.js",
+    "static/js/2.fa916abe.chunk.js",
+    "static/css/main.f3f25b39.chunk.css",
+    "static/js/main.531495fe.chunk.js"
+  ]
+}
