@@ -12,16 +12,19 @@ import styles from './SpeechRecognizer.module.css'
 
 function processSpeech(speech) {
     const onMatchInsertRegex = (match, emojiDesc) => {
+        console.log(match)
         if (emojiMap[emojiDesc.toLowerCase()]) {
             return emojiMap[emojiDesc.toLowerCase()];
         }
         return match;
     }
-    speech = speech.replace(/\binserir emoji (.*) ok\b/gi, onMatchInsertRegex)
-    speech = speech.replace(/\binsert (.*) emoji\b/gi, onMatchInsertRegex)
+    speech = speech.replace(/\binserir emoji (.*?) ok\b/gi, onMatchInsertRegex)
+    speech = speech.replace(/\binserir emoji (.*?) Ok\b/gi, onMatchInsertRegex)
+    speech = speech.replace(/\binserts? (.*?) emoji\b/gi, onMatchInsertRegex)
+    speech = speech.replace(/\badd (.*?) emoji\b/gi, onMatchInsertRegex)
 
     // remove suggest emojis from end
-    speech = speech.replace(/\b(.*) suggest emojis\b/gi, '$1')
+    speech = speech.replace(/\b(.*) suggest emojis?\b/gi, '$1')
 
     return speech;
 }
@@ -48,7 +51,7 @@ const SpeechRecognizer = ({ onMessageSent }) => {
             },
         },
         {
-            command: '* Suggest Emojis',
+            command: ['* Suggest Emoji', '* Suggest Emojis'],
             callback: () => {
                 const search = ["😀", "😁", "😂", "🤣", "😃"]
                 setPickableEmojis(search)
@@ -81,8 +84,11 @@ const SpeechRecognizer = ({ onMessageSent }) => {
         clearMessage();
     }
     const clearMessage = () => {
-        resetTranscript()
+        resetTranscript();
         setMessage("");
+    }
+    const repeatMessage = () => {
+        textToSpeech(message);
     }
 
     if (!browserSupportsSpeechRecognition)
@@ -108,12 +114,13 @@ const SpeechRecognizer = ({ onMessageSent }) => {
             <p aria-label="Texto gravado">{message || transcript}</p>
 
             <div className={styles.buttons} role="group">
-                <Button onClick={clearMessage} color="red">Limpar</Button>
                 {listening ?
                     <Button onClick={stopListening} color="green">A gravar 🔴</Button> :
                     <Button onClick={startListening} color="green">Gravar</Button>
                 }
+                <Button onClick={clearMessage} color="red">Limpar</Button>
                 <Button onClick={sendMessage} color="blue">Enviar</Button>
+                <Button onClick={repeatMessage} color="black">Repetir</Button>
             </div>
 
         </div>
