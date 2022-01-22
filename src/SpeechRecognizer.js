@@ -68,7 +68,8 @@ const SpeechRecognizer = ({ onMessageSent }) => {
 
     const startListening = () => {
         // https://github.com/JamesBrill/react-speech-recognition/blob/HEAD/docs/API.md#language-string
-        SpeechRecognition.startListening({ language: 'en-US' });
+        //SpeechRecognition.startListening({ language: 'en-US' });
+        SpeechRecognition.startListening({ language: 'pt-PT' });
         setMessage("")
     }
     const stopListening = () => {
@@ -85,7 +86,7 @@ const SpeechRecognizer = ({ onMessageSent }) => {
     }
 
     if (!browserSupportsSpeechRecognition)
-        return <span>Browser doesn't support speech recognition.</span>;
+        return <span>O seu navegador não suporta reconhecimento de voz.</span>;
 
     const EmojiButton = ({emoji}) => {
         return <button onClick={() => {
@@ -96,19 +97,23 @@ const SpeechRecognizer = ({ onMessageSent }) => {
 
     return (
         <div className={styles.container}>
-            <ul className={styles.emojis}>
-                {pickableEmojis.map(emoji => <li key={emoji}><EmojiButton emoji={emoji}/></li>)}
+            <ul className={styles.emojis} aria-label="Lista de Emojis">
+                {pickableEmojis.map(emoji => (
+                    <li key={emoji} aria-label="Opção de Emoji">
+                        <EmojiButton emoji={emoji}/>
+                    </li>
+                ))}
             </ul>
 
-            <p>{message || transcript}</p>
+            <p aria-label="Texto gravado">{message || transcript}</p>
 
-            <div className={styles.buttons}>
-                <Button onClick={clearMessage} color="red">Clear</Button>
+            <div className={styles.buttons} role="group">
+                <Button onClick={clearMessage} color="red">Limpar</Button>
                 {listening ?
-                    <Button onClick={stopListening} color="green">Recording 🔴</Button> :
-                    <Button onClick={startListening} color="green">Start Recording</Button>
+                    <Button onClick={stopListening} color="green">A gravar 🔴</Button> :
+                    <Button onClick={startListening} color="green">Gravar</Button>
                 }
-                <Button onClick={sendMessage} color="blue">Send</Button>
+                <Button onClick={sendMessage} color="blue">Enviar</Button>
             </div>
 
         </div>
