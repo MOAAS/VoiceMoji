@@ -119,7 +119,7 @@ const SpeechRecognizer = ({ onMessageSent }) => {
                     <Button onClick={startListening} color="green">Gravar</Button>
                 }
                 <Button onClick={clearMessage} color="red">Limpar</Button>
-                <Button onClick={sendMessage} color="blue">Enviar</Button>
+                <Button onClick={sendMessage} color="blue">Copiar</Button>
                 <Button onClick={repeatMessage} color="black">Repetir</Button>
             </div>
 
