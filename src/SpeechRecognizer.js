@@ -63,7 +63,7 @@ const SpeechRecognizer = ({ onMessageSent }) => {
 
     const textToSpeech = (text) => speak({
         text,
-        voice: voices[0],
+        voice: voices.find(voice => voice.lang === "pt-PT"),
         rate: 1,
         pitch: 1,
         volume: 1,
