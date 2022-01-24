@@ -7,3 +7,14 @@
     color: black;
     padding: 0.5em;
 }
+
+
+/* Medium devices (desktops, 768px and up) */
+@media (max-width: 768px) {
+    .list {
+        min-width: auto;
+        width: calc(100% - 1em);
+        margin: 0.5em;
+        box-sizing: border-box;
+    }    
+}
